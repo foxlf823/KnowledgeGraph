@@ -54,11 +54,25 @@ public class KGgraph extends Graph {
             	for(Entity entity:kgVertex.entities) {
             		Element elementEntity = document.createElement("entity");
             		elementKGvertex.appendChild(elementEntity);
+            		
+            		elementEntity.setAttribute("id", entity.getId());
 
             		Element elementFullname = document.createElement("fullname");
             		elementEntity.appendChild(elementFullname);
-            		elementEntity.setAttribute("id", entity.getId());
             		elementFullname.setTextContent(entity.fullName);
+            		
+            		Element elementType = document.createElement("type");
+            		elementEntity.appendChild(elementType);
+            		elementType.setTextContent(entity.type);
+            		
+            		Element elementBeginPosition = document.createElement("beginposition");
+            		elementEntity.appendChild(elementBeginPosition);
+            		elementBeginPosition.setTextContent(entity.span.a.toString());
+            		
+            		Element elementEndPosition = document.createElement("endposition");
+            		elementEntity.appendChild(elementEndPosition);
+            		elementEndPosition.setTextContent(entity.span.b.toString());
+            		
             	}
             	
             	
@@ -73,6 +87,7 @@ public class KGgraph extends Graph {
             	Relation relation = kgEdge.relation;
             	Element elementRelation = document.createElement("relation");
             	elementKGedge.appendChild(elementRelation);
+            	
             	elementRelation.setAttribute("id", relation.getId());
             	
         		Element elementArgument1 = document.createElement("argument");
@@ -82,6 +97,14 @@ public class KGgraph extends Graph {
         		Element elementArgument2 = document.createElement("argument");
         		elementRelation.appendChild(elementArgument2);
         		elementArgument2.setTextContent(relation.argument2.getId());
+        		
+        		Element elementType = document.createElement("type");
+        		elementRelation.appendChild(elementType);
+        		elementType.setTextContent(relation.type);
+        		
+        		Element elementEvidence = document.createElement("evidence");
+        		elementRelation.appendChild(elementEvidence);
+        		elementEvidence.setTextContent(relation.evidence);
             	
             }
             	
