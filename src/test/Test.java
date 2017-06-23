@@ -1,5 +1,7 @@
 package test;
 
+import java.io.File;
+
 import preprocess.ACE05Utils;
 
 public class Test {
@@ -11,6 +13,7 @@ public class Test {
 		String rawText = ACE05Utils.transformSGMtoRawText(filePath, dtdFilePath);
 		
 		System.out.println(rawText);
+		
 	}
 
 }

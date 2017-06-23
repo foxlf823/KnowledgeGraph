@@ -1,8 +1,10 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
@@ -26,6 +28,9 @@ public class RelationExtraction {
 		String dtdFilePath = "D:\\data\\ace2005\\ACE2005-TrainingData-V5.0\\dtd\\ace_source_sgml.v1.0.2.dtd";
 		String rawText = ACE05Utils.transformSGMtoRawText(filePath, dtdFilePath);
 		
+		Set<String> entityTypes = new HashSet<>();
+		Set<String> relationTypes = new HashSet<>();
+		
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize,ssplit,pos,lemma,ner,parse,relation");
         
@@ -47,7 +52,7 @@ public class RelationExtraction {
 	     for(CoreMap sentence: sentences) {
 	       // traversing the words in the current sentence
 	       // a CoreLabel is a CoreMap with additional token-specific methods
-	    	 System.out.println("### A new sentence begins ###");
+/*	    	 System.out.println("### A new sentence begins ###");
 	    	 
 	       for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
 	         // this is the text of the token
@@ -59,20 +64,39 @@ public class RelationExtraction {
 	         
 	         System.out.print(word+"/"+pos+"/"+ne+" ");
 	       }
-	       System.out.println();
+	       System.out.println();*/
 	       
 	       System.out.println("### Entities ###");
 	       List<EntityMention> entities = sentence.get(EntityMentionsAnnotation.class);
-	       for(EntityMention entity:entities)
+	       for(EntityMention entity:entities) {
+	    	   if(entity.getType().equals("O"))
+	    		   continue;
 	    	   System.out.println(entity.getType()+" | "+entity.getValue());
+	    	   entityTypes.add(entity.getType());
+	       }
 	       
 	       System.out.println("### Relations ###");
 	       List<RelationMention> relations = sentence.get(RelationMentionsAnnotation.class);
-	       for(RelationMention relation:relations)
+	       for(RelationMention relation:relations) {
+	    	   if(relation.getType().equals("_NR"))
+	    		   continue;
 	    	   System.out.println(relation.getType()+" | "+relation.getValue());
+	    	   relationTypes.add(relation.getType());
+	       }
 	       
 	       System.out.println();
 	     }
+	     
+	     
+	     System.out.print("existing entity types: ");
+	     for(String type:entityTypes)
+	    	 System.out.print(type+" ");
+	     System.out.println();
+	     
+	     System.out.print("existing relation types: ");
+	     for(String type:relationTypes)
+	    	 System.out.print(type+" ");
+	     System.out.println();
 	
 	}
 

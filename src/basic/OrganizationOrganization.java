@@ -2,8 +2,9 @@ package basic;
 
 
 public class OrganizationOrganization extends Relation {
-	// false-directed relation such as superior and subordinate, true-undirected relation such as cooperation
-	public boolean symmetry;
-	public Entity organization1;
-	public Entity organization2;
+	
+	@Override
+	public String toString() {
+		return "organ-organ | "+argument1.toString()+" | "+argument2.toString();
+	}
 }

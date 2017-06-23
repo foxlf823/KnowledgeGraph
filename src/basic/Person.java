@@ -12,4 +12,8 @@ public class Person extends Entity {
 	// e.g., chairman, president
 	public List<String> title = new ArrayList<>();
 	public boolean sex; // false-male, true-female
+	
+	public Person() {
+		type = "Person";
+	}
 }
